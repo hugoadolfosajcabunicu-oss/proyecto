@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salud Integral - Investigación</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Raleway:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            background-color: #050505; /* Fondo negro */
+            color: #f0f0f0;
+            font-family: 'Raleway', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Canvas para la nieve */
+        #snow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Contenedor principal */
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 50px 20px;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            color: #d4af37; /* Dorado elegante */
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        h2 {
+            font-size: 2em;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+            padding-bottom: 10px;
+            margin-top: 50px;
+        }
+
+        p, li {
+            line-height: 1.8;
+            font-size: 1.1em;
+            color: #cccccc;
+            text-align: justify;
+        }
+
+        .section-box {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        /* Grid para las gráficas */
+        .chart-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .chart-container {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            text-align: center;
+        }
+
+        .chart-container h3 {
+            font-size: 1.2em;
+            color: #fff;
+            font-family: 'Raleway', sans-serif;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="snow"></canvas>
+
+    <div class="container">
+        <div class="section-box" style="text-align:center;">
+            <h1>PRESENTACIÓN DE GRUPO</h1>
+
+            <img src="C:\Users\HUGO-PC\Desktop\HUGO ADOLFO\musica\grupo.jpg.jpeg"
+                 alt="Fotografía del grupo" 
+                 style="width:90%;max-width:500px;border-radius:15px;
+                 border:3px solid #d4af37;margin:20px 0;">
+
+            <h2>Integrantes</h2>
+
+            <ul style="list-style:none;padding:0;text-align:center;font-size:1.15em;">
+                <li>Isaías Tubac Chuy</li>
+                <li>Luis Carlos Ávila Simaj</li>
+                <li>Josselin Magalí Coy Simón</li>
+                <li>Eymi Karina Roquel Tecun</li>
+                <li>Lesly Aracely Martínez Reyes</li>
+                <li>Nancy Flor de María Perén Morales</li>
+                <li>Jhanneth Sindy Vannessa Bal Saquiquel</li>
+                <li>Hugo Adolfo Sajcabún Icú</li>
+            </ul>
+        </div>
+        
+        <div class="section-box" style="text-align: center;">
+            <h1>Proyecto de Investigación</h1>
+            <p style="text-align: center; font-size: 1.3em; color: #fff;">
+                Salud física, mental y emocional de los estudiantes de segundo básico del Colegio Bethlehem.
+            </p>
+        </div>
+
+        <div class="section-box">
+            <h2>Planteamiento del Problema</h2>
+            <p>En la actualidad, la salud física, mental y emocional de los adolescentes es vital por su influencia en el rendimiento académico y el desarrollo integral. Diversos factores como el estrés académico, uso excesivo de dispositivos electrónicos y problemas familiares generan alteraciones en la salud de los estudiantes. Estas situaciones se manifiestan mediante ansiedad, cansancio físico y baja autoestima. En Guatemala, la salud se ve comprometida por una brecha de atención del 97% en salud mental. Específicamente en el Colegio Bethlehem, en San Juan Comalapa, no se cuenta con información específica sobre el estado de salud de los estudiantes de segundo básico, lo cual restringe el entendimiento de sus necesidades.</p>
+        </div>
+
+        <div class="section-box">
+            <h2>Preguntas de Investigación</h2>
+            <ul>
+                <li>¿Cuál es el estado actual de la salud física, mental y emocional de los estudiantes de segundo básico del Colegio Bethlehem?.</li>
+                <li>¿Cómo son los hábitos relacionados con la salud física de los estudiantes?.</li>
+                <li>¿Qué percepción poseen sobre la importancia de la salud integral?.</li>
+                <li>¿Cuáles son los factores que afectan el bienestar físico, mental y emocional?.</li>
+            </ul>
+        </div>
+
+        <div class="section-box">
+            <h2>Justificación</h2>
+            <p>La etapa de educación básica coincide con la adolescencia, donde los jóvenes son altamente vulnerables a presiones académicas y del entorno digital. Los entornos educativos suelen centrarse en habilidades cognitivas, postergando la gestión del bienestar emocional. Con un 59% de suicidios en población joven en Guatemala y trastornos mentales afectando a 1 de cada 7 adolescentes, la escuela debe implementar estrategias de apoyo emocional. Este estudio aporta datos para fundamentar estrategias prácticas de resolución de conflictos y autoestima.</p>
+        </div>
+
+        <div class="section-box">
+            <h2>Delimitación</h2>
+            <ul>
+                <li><strong>Ámbito Geográfico:</strong> Municipio de San Juan Comalapa, departamento de Chimaltenango, Guatemala.</li>
+                <li><strong>Ámbito Institucional:</strong> Colegio Mixto Evangélico "Bethlehem".</li>
+                <li><strong>Ámbito Personal:</strong> Adolescentes de Segundo Básico entre 12 y 14 años.</li>
+                <li><strong>Ámbito Temporal:</strong> Primer semestre del año 2026 (meses de mayo y junio).</li>
+            </ul>
+        </div>
+
+        <div class="section-box">
+            <h2>Objetivos de la Investigación</h2>
+            <p><strong>Objetivo General:</strong> Analizar el estado actual de la salud física, mental y emocional de los estudiantes de segundo básico del Colegio Bethlehem.</p>
+            <p><strong>Objetivos Específicos:</strong></p>
+            <ul>
+                <li>Describir los hábitos relacionados con la salud integral.</li>
+                <li>Determinar la percepción de los estudiantes sobre la importancia de la salud.</li>
+                <li>Identificar los factores físicos, mentales y emocionales que afectan su bienestar.</li>
+            </ul>
+        </div>
+
+        <div class="section-box">
+            <h2>Enfoque de la Investigación</h2>
+            <p>La investigación posee un enfoque cuantitativo, ya que recopila y analiza datos medibles sobre la salud de los estudiantes. Su alcance es descriptivo, con el fin de caracterizar y reportar de manera objetiva la situación actual. El diseño utilizado es no experimental y transversal, observando los fenómenos en su entorno natural en un único momento del tiempo.</p>
+        </div>
+
+        <div class="section-box">
+            <h2>Población y Muestra</h2>
+            <p>La población de estudio está conformada por la totalidad de los 33 estudiantes de segundo básico del Colegio Bethlehem. Debido al tamaño accesible, se optó por un muestreo censal, donde la muestra equivale al 100% de la población.</p>
+        </div>
+
+        <div class="section-box">
+            <h2>Técnicas e Instrumentos de Recolección</h2>
+            <p>Se utiliza la encuesta como técnica principal para captar percepciones y experiencias. El instrumento es un cuestionario estructurado con preguntas cerradas con escala de valoración, dividido en tres bloques temáticos. El primer bloque abordará la salud física (sueño, pantallas, alimentación); el segundo, la salud mental (estrés, concentración, aislamiento); y el tercero, la salud emocional (autorregulación, conflictos, redes sociales).</p>
+        </div>
+
+        <div style="text-align: center;">
+            <img src="C:\Users\HUGO-PC\Desktop\HUGO ADOLFO\musica\aplicacion de la encuesta .jpeg"
+                 alt="Fotografía" 
+                 style="width:90%;max-width:350px;border-radius:15px;
+                 border:3px solid #d4af37;margin:20px 0;">
+          
+            <img src="C:\Users\HUGO-PC\Desktop\HUGO ADOLFO\musica\x2.jpeg"
+                 alt="Fotografía" 
+                 style="width:90%;max-width:350px;border-radius:15px;
+                 border:3px solid #d4af37;margin:20px 0;">
+          
+            <img src="C:\Users\HUGO-PC\Desktop\HUGO ADOLFO\musica\x8.jpeg"
+                 alt="Fotografía" 
+                 style="width:90%;max-width:350px;border-radius:15px;
+                 border:3px solid #d4af37;margin:20px 0;">
+        </div>
+
+        <div class="section-box">
+            <h2>Presentación de Resultados</h2>
+            <p>Los resultados se obtuvieron encuestando a 33 estudiantes de segundo básico durante el ciclo 2026. A continuación, se presentan los datos graficados de los hallazgos más relevantes.</p>
+
+            <h3 style="color: #fff; margin-top: 40px;">Sección 1: Hábitos de Salud Física</h3>
+            <div class="chart-grid">
+                <div class="chart-container">
+                    <h3>1. Horas de Sueño Suficientes</h3>
+                    <canvas id="chartF1"></canvas>
+                </div>
+                <div class="chart-container">
+                    <h3>3. Actividad Física Semanal</h3>
+                    <canvas id="chartF3"></canvas>
+                </div>
+            </div>
+
+            <h3 style="color: #fff; margin-top: 50px;">Sección 2: Percepción de Salud Integral</h3>
+            <div class="chart-grid">
+                <div class="chart-container">
+                    <h3>2. Emociones y Rendimiento</h3>
+                    <canvas id="chartP2"></canvas>
+                </div>
+                <div class="chart-container">
+                    <h3>4. Actividades contra Ansiedad</h3>
+                    <canvas id="chartP4"></canvas>
+                </div>
+            </div>
+
+            <h3 style="color: #fff; margin-top: 50px;">Sección 3: Factores que Afectan el Bienestar</h3>
+            <div class="chart-grid">
+                <div class="chart-container">
+                    <h3>3. Problemas Familiares</h3>
+                    <canvas id="chartA3"></canvas>
+                </div>
+                <div class="chart-container">
+                    <h3>5. Impacto de Burlas y Críticas</h3>
+                    <canvas id="chartA5"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-box">
+            <h2>Conclusiones</h2>
+            <ul>
+                <li>Se determinó que la salud física, mental y emocional influyen directamente en el rendimiento académico y bienestar integral de los estudiantes.</li>
+                <li>La mayoría de los estudiantes reconoce que mantener una buena salud favorece la prevención de enfermedades y un mejor desempeño escolar.</li>
+                <li>A nivel físico, mantienen prácticas positivas como higiene y alimentación, pero no siempre duermen lo suficiente, afectando su energía.</li>
+                <li>Factores externos como la acumulación de tareas, problemas familiares y críticas de compañeros afectan negativamente su bienestar emocional y mental.</li>
+            </ul>
+        </div>
+
+        <div class="section-box">
+            <h2>Recomendaciones</h2>
+            <ul>
+                <li><strong>A las Autoridades:</strong> Implementar talleres mensuales de educación socioemocional para fortalecer la autoestima, resolución de conflictos y manejo del estrés, contrarrestando el impacto de las críticas reportadas por el 40% de estudiantes.</li>
+                <li><strong>Al Personal Docente:</strong> Capacitar en la identificación temprana de señales de alerta (ansiedad o aislamiento) para facilitar la comunicación antes de que el rendimiento se vea afectado.</li>
+                <li><strong>Ámbito Físico:</strong> Fomentar actividades recreativas y reducir conductas sedentarias para disminuir el cansancio físico.</li>
+                <li><strong>Futuras Investigaciones:</strong> Formalizar la aplicación anual de este diagnóstico para medir la efectividad de las acciones institucionales y la evolución del bienestar.</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        /* === EFECTO DE NIEVE (Puntos Blancos) === */
+        const canvas = document.getElementById('snow');
+        const ctx = canvas.getContext('2d');
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
+        let particles = [];
+
+        window.addEventListener('resize', () => {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        });
+
+        for (let i = 0; i < 150; i++) {
+            particles.push({
+                x: Math.random() * width,
+                y: Math.random() * height,
+                r: Math.random() * 2 + 1,
+                d: Math.random() * 150,
+                vx: Math.random() * 1 - 0.5,
+                vy: Math.random() * 2 + 0.5
+            });
+        }
+
+        function drawSnow() {
+            ctx.clearRect(0, 0, width, height);
+            ctx.fillStyle = "rgba(255, 255, 255, 0.8)";
+            ctx.beginPath();
+            particles.forEach(p => {
+                ctx.moveTo(p.x, p.y);
+                ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2, true);
+            });
+            ctx.fill();
+            updateSnow();
+        }
+
+        function updateSnow() {
+            particles.forEach(p => {
+                p.x += p.vx;
+                p.y += p.vy;
+                if (p.y > height) {
+                    p.y = 0;
+                    p.x = Math.random() * width;
+                }
+            });
+        }
+
+        setInterval(drawSnow, 33);
+
+        /* === CONFIGURACIÓN DE GRÁFICAS (Chart.js) === */
+        Chart.defaults.color = '#cccccc';
+        Chart.defaults.font.family = 'Raleway';
+        
+        function createChart(ctxId, type, labels, data, colors) {
+            const ctx = document.getElementById(ctxId);
+            if (!ctx) return;
+
+            new Chart(ctx, {
+                type: type,
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        data: data,
+                        backgroundColor: colors,
+                        borderColor: 'rgba(0,0,0,0.5)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { position: 'bottom' }
+                    }
+                }
+            });
+        }
+
+        const colors3 = ['#d4af37', '#7393B3', '#555555'];
+
+        // Sección 1 - Datos con porcentaje integrado en las etiquetas
+        createChart('chartF1', 'pie', ['Algunas veces (55%)', 'Siempre (30%)', 'Nunca (15%)'], [55, 30, 15], colors3);
+        createChart('chartF3', 'pie', ['Siempre (46%)', 'A veces (45%)', 'Nunca (9%)'], [46, 45, 9], colors3);
+
+        // Sección 2 - Datos ajustados de acuerdo con la tabulación del reporte
+        createChart('chartP2', 'pie', ['Siempre (40%)', 'A veces (40%)', 'Nunca (20%)'], [40, 40, 20], colors3);
+        createChart('chartP4', 'pie', ['A veces (43%)', 'Siempre (33%)', 'Nunca (24%)'], [43, 33, 24], colors3);
+
+        // Sección 3 - Factores externos
+        createChart('chartA3', 'pie', ['A veces (46%)', 'Nunca (33%)', 'Siempre (21%)'], [46, 33, 21], colors3);
+        createChart('chartA5', 'pie', ['A veces (40%)', 'Nunca (36%)', 'Siempre (24%)'], [40, 36, 24], colors3);
+    </script>
+</body>
+</html>
